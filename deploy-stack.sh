@@ -12,7 +12,6 @@ then
 #se ejecuta después de la creación si es correcto
     aws cloudformation list-exports \
         --output json \
-# ? 
         --query "Exports[?Name=='ServerPublicIP'].Value" >list-export-filtered.json
     echo "ejecución realizada con éxito" 
     echo " ٩(˘◡˘)۶ "
