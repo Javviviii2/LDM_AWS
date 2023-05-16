@@ -1,22 +1,21 @@
-# Repositorio AWS CloudFormation 
+# Repositorio AWS 
 ## Por Javier Rodríguez Fernández
-#
-#
-# deploy-stack.sh => script linux lanzar pilas
-# main.yml => recursos y otras cosas de las pilas
-# tear-down-stack.sh => script linux borrar pilas
 
-### Comandos para instalar LAMP
--- Comprobar que todo esté update
-sudo dnf update -y
+### 1. Desploy-stack.sh
+El script despliega una pila con el nombre de Pila-Javi
 
--- Instalar Apache
-sudo dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
+### 2. main.yml 
+Tiene los recursos de:
+- Instancia EC2
+- Grupo de Seguridad
+### 3. tear-down-stack.sh 
+Script linux borrar pilas con el nombre Pila-Javi
 
--- Instalar MariaDb
-sudo dnf install -y mariadb105-server
-
--- Comenzar Apache
-sudo systemctl start httpd
-sudo systemctl enable httpd
-
+### 4. Comandos para instalar LAMP
+`#!/bin/bash
+yum update -y
+amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+yum install -y httpd mariadb-server
+systemctl start httpd
+systemctl enable httpd
+`
