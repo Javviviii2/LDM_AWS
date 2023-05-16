@@ -1,19 +1,19 @@
-<center> # Repositorio AWS </center> 
+# Repositorio AWS
 ## Por Javier Rodríguez Fernández
 ***
-### 1. Desploy-stack.sh
-El script despliega una pila con el nombre de Pila-Javi
+ ### 1. Desploy-stack.sh
+  El script despliega una pila con el nombre de Pila-Javi
 ***
-### 2. main.yml 
-Tiene los recursos de:
-- Instancia EC2
-- Grupo de Seguridad
+  ### 2. main.yml 
+  Tiene los recursos de:
+  - Instancia EC2
+  - Grupo de Seguridad
 ***
-### 3. tear-down-stack.sh 
-Script linux borrar pilas con el nombre Pila-Javi
+  ### 3. tear-down-stack.sh 
+  Script linux borrar pilas con el nombre Pila-Javi
 ***
-### 4. Comandos para instalar LAMP
-Script para instalar elementos LAMP:
+  ### 4. Comandos para instalar LAMP
+  Script para instalar elementos LAMP:
 ~~~
 #!/bin/bash
 yum update -y                                                               # upgradea los elementos que sea posible.
