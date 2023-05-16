@@ -16,9 +16,9 @@
   Script para instalar elementos LAMP:
 ~~~
 #!/bin/bash
-yum update -y                                                               # upgradea los elementos que sea posible.
-yum dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel     # instalar php y Apache
-yum install -y httpd mariadb-server                                         # instalar mariaDB
-yum systemctl start httpd
-yum systemctl enable httpd
+yum update -y
+amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+yum install -y httpd mariadb-server
+systemctl start httpd
+systemctl enable httpd
 ~~~
