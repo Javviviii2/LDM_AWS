@@ -1,6 +1,6 @@
 aws cloudformation deploy \
     --template-file ./main.yml \
-    --stack-name Filtrado-salida 
+    --stack-name Pila_Javi 
 
 #comprobar que se ejecute correctamente el deploy
 # $? variable de nivel de error

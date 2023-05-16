@@ -1,2 +1,2 @@
 aws cloudformation delete-stack \
-    --stack-name ampliando-template 
+    --stack-name Pila_Javi
