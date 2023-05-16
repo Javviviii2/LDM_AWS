@@ -1,6 +1,6 @@
 aws cloudformation deploy \
     --template-file ./main.yml \
-    --stack-name Pila_Javi 
+    --stack-name Pila-Javi 
 
 #comprobar que se ejecute correctamente el deploy
 # $? variable de nivel de error
@@ -12,7 +12,7 @@ then
 #se ejecuta después de la creación si es correcto
     aws cloudformation list-exports \
         --output json \
-        --query "Exports[?Name=='ServerPublicIP'].Value" >list-export-filtered.json
+        --query "Exports[?Name=='ServerPublicIP'].Value"
     echo "ejecución realizada con éxito" 
     echo " ٩(˘◡˘)۶ "
 else 
