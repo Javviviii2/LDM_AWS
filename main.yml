@@ -54,7 +54,7 @@ Resources:
       - Key: "Name"
         Value: !Join 
                 - "-"
-                - -  !Ref AWS::StackName
+                - - !Ref AWS::StackName
                   - !Ref AWS::AccountId
       UserData:
         Fn::Base64: !Sub |
@@ -64,7 +64,7 @@ Resources:
           yum install -y httpd mariadb105
           systemctl start httpd
           systemctl enable httpd
-          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WordPressServer --region ${AWS::Region}
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource EC2Instance --region ${AWS::Region}
 
 Outputs:
   InstanceId:
