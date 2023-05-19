@@ -21,10 +21,8 @@ Resources:
       GroupName: WebSecurityGroup
       Tags: 
       - Key: "Name"
-        Value: !Join
-                - "-"
-                - - !Ref AWS::StackName
-                  - !Ref AWS::AccountId
+        Value: !Join ["-", [!Ref "AWS::StackName", !Ref "AWS::AccountId"]]
+
       
       SecurityGroupIngress:
       - IpProtocol: TCP
@@ -55,9 +53,9 @@ Resources:
       Tags: 
       - Key: "Name"
         Value: !Join 
-                  - "-"
-                  - -  !Ref AWS::StackName
-                    - !Ref AWS::AccountId
+                - "-"
+                - -  !Ref AWS::StackName
+                  - !Ref AWS::AccountId
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
