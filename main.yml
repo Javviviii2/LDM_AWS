@@ -56,15 +56,15 @@ Resources:
                 - "-"
                 - - !Ref AWS::StackName
                   - !Ref AWS::AccountId
-      UserData:
+      UserData: 
         Fn::Base64: !Sub |
-          #!/bin/bash
-          yum update -y
-          yum install -y httpd wget php-fpm php-mysqli php-json php php-devel2
-          yum install -y httpd mariadb105
-          systemctl start httpd
-          systemctl enable httpd
-          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WordPressServer --region ${AWS::Region}
+            #!/bin/bash -xe
+            yum install -y aws-cfn-bootstrap
+            yum install -y httpd wget php-fpm php-mysqli php-json php php-devel2
+            yum install -y httpd mariadb105
+            systemctl start httpd
+            systemctl enable httpd
+            /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WordPressServer --region ${AWS::Region}
 
 Outputs:
   InstanceId:
