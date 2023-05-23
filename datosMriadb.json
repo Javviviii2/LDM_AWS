@@ -1,0 +1,128 @@
+{
+    "DBInstances": [
+        {
+            "DBInstanceIdentifier": "bbdd-javi",
+            "DBInstanceClass": "db.t3.medium",
+            "Engine": "mariadb",
+            "DBInstanceStatus": "configuring-enhanced-monitoring",
+            "MasterUsername": "admin",
+            "DBName": "BaseDeDatosMariaDB",
+            "Endpoint": {
+                "Address": "bbdd-javi.cyamtmnsqqgk.us-east-1.rds.amazonaws.com",
+                "Port": 3306,
+                "HostedZoneId": "Z2R2ITUGPM61AM"
+            },
+            "AllocatedStorage": 100,
+            "InstanceCreateTime": "2023-05-23T07:44:08.012000+00:00",
+            "PreferredBackupWindow": "09:05-09:35",
+            "BackupRetentionPeriod": 0,
+            "DBSecurityGroups": [],
+            "VpcSecurityGroups": [
+                {
+                    "VpcSecurityGroupId": "sg-086e833517664620b",
+                    "Status": "active"
+                },
+                {
+                    "VpcSecurityGroupId": "sg-01fdcf66f07877f25",
+                    "Status": "active"
+                }
+            ],
+            "DBParameterGroups": [
+                {
+                    "DBParameterGroupName": "default.mariadb10.6",
+                    "ParameterApplyStatus": "applying"
+                }
+            ],
+            "AvailabilityZone": "us-east-1d",
+            "DBSubnetGroup": {
+                "DBSubnetGroupName": "rds-ec2-db-subnet-group-1",
+                "DBSubnetGroupDescription": "Created from the RDS Management Console",
+                "VpcId": "vpc-0d32f133d18fcdbfc",
+                "SubnetGroupStatus": "Complete",
+                "Subnets": [
+                    {
+                        "SubnetIdentifier": "subnet-04668df1808fda490",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1e"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-035a2790f1a61a092",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1a"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-08019e5dfc04861eb",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1f"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-0be8bcdcebef7e199",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1d"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-03ca9ff4cc247cea7",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1b"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    }
+                ]
+            },
+            "PreferredMaintenanceWindow": "tue:10:03-tue:10:33",
+            "PendingModifiedValues": {},
+            "MultiAZ": false,
+            "EngineVersion": "10.6.10",
+            "AutoMinorVersionUpgrade": true,
+            "ReadReplicaDBInstanceIdentifiers": [],
+            "LicenseModel": "general-public-license",
+            "OptionGroupMemberships": [
+                {
+                    "OptionGroupName": "default:mariadb-10-6",
+                    "Status": "in-sync"
+                }
+            ],
+            "PubliclyAccessible": false,
+            "StorageType": "gp2",
+            "DbInstancePort": 0,
+            "StorageEncrypted": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:829335284897:key/9d90fcb5-cc07-4839-abc0-67a84258f81b",
+            "DbiResourceId": "db-CMPVVYO73MI6B5LZGLYET3OSY4",
+            "CACertificateIdentifier": "rds-ca-2019",
+            "DomainMemberships": [],
+            "CopyTagsToSnapshot": true,
+            "MonitoringInterval": 0,
+            "DBInstanceArn": "arn:aws:rds:us-east-1:829335284897:db:bbdd-javi",
+            "IAMDatabaseAuthenticationEnabled": false,
+            "PerformanceInsightsEnabled": true,
+            "PerformanceInsightsKMSKeyId": "arn:aws:kms:us-east-1:829335284897:key/9d90fcb5-cc07-4839-abc0-67a84258f81b",
+            "PerformanceInsightsRetentionPeriod": 7,
+            "DeletionProtection": false,
+            "AssociatedRoles": [],
+            "MaxAllocatedStorage": 150,
+            "TagList": [],
+            "CustomerOwnedIpEnabled": false,
+            "ActivityStreamStatus": "stopped",
+            "BackupTarget": "region",
+            "NetworkType": "IPV4",
+            "StorageThroughput": 0,
+            "CertificateDetails": {
+                "CAIdentifier": "rds-ca-2019",
+                "ValidTill": "2024-08-22T17:08:50+00:00"
+            }
+        }
+    ]
+}

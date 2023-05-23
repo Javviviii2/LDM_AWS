@@ -22,3 +22,6 @@ yum install -y httpd mariadb105
 systemctl start httpd
 systemctl enable httpd
 ~~~
+ ### 5. Contraseña BBDD
+  usuario: admin
+  contraseña: Javi-1234
