@@ -92,6 +92,9 @@ Resources:
               
 #Editar archivo
               #cp wordpress/wp-config-sample.php wordpress/wp-config.php #backup archivo original
+              #sed 's/database_name_here/wordpress-db-Javi/' wp-config.php #cambiar nombre database
+              #sed 's/wordpress-user/Javi/' wp-config.php #poner usuario
+              #sed 's/your_strong_password/1234/' wp-config.php #poner contraseña usuario
 
 
 
