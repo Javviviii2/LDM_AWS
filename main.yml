@@ -70,10 +70,19 @@ Resources:
               #instalación Wordpress
               wget https://wordpress.org/latest.tar.gz
               tar -xzf latest.tar.gz
-              
-#asegurar base de datos
-              #sudo systemctl start mariadb
-              #sudo -y mysql_secure_installation
+
+              #Permissions for Apache web server
+              sudo usermod -a -G apache ec2-user #añadir usuario ec2-user a apache group
+              sudo chown -R ec2-user:apache /var/www
+              sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
+              find /var/www -type f -exec sudo chmod 0664 {} \;              
+
+              #asegurar base de datos
+              sudo systemctl start mariadb
+              sudo -y mysql_secure_installation
+
+              #check permisos
+              echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
               
 #To create a database user and database for your WordPress installation
               #yum systemctl start mariadb httpd
@@ -83,13 +92,7 @@ Resources:
               #GRANT ALL PRIVILEGES ON `wordpress-db-Javi`.* TO "Javi"@"localhost"; # dar permiso al usuario creado
               #FLUSH PRIVILEGES;
               #exit
-              
-#Permissions for Apache web server
-              #sudo usermod -a -G apache ec2-user #añadir usuario ec2-user a apache group
-              #sudo chown -R ec2-user:apache /var/www
-              #sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
-              #find /var/www -type f -exec sudo chmod 0664 {} \;
-              
+
 #Editar archivo
               #cp wordpress/wp-config-sample.php wordpress/wp-config.php #backup archivo original
               #sed 's/database_name_here/wordpress-db-Javi/' wp-config.php #cambiar nombre database
