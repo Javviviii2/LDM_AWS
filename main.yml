@@ -35,6 +35,20 @@ Resources:
         FromPort: 443
         ToPort: 443
         CidrIp: 0.0.0.0/0
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub "Grupo de Seguridad interno para Base de datos en la pila ${AWS::StackName}"
+      GroupName: DBSecurityGroup
+      Tags: 
+      - Key: "Name"
+        Value: !Join ["-", [!Ref "AWS::StackName", !Ref "AWS::AccountId"]]
+      SecurityGroupIngress:
+      - IpProtocol: TCP
+        FromPort: 3306
+        ToPort: 3306
+        SourceSecurityGroupName: !Ref WebSecurityGroup
+
   WordPressServer:
     Type: AWS::EC2::Instance
     CreationPolicy:
@@ -54,6 +68,7 @@ Resources:
                 - "-"
                 - - !Ref AWS::StackName 
                   - !Ref AWS::AccountId
+    
       UserData: 
           Fn::Base64: !Sub |
               #!/bin/bash -xe
@@ -61,8 +76,8 @@ Resources:
               
               #Instalar pila LAMP
               sudo yum update -y
-              sudo yum install -y httpd wget php-fpm php-mysqli php-json php php-devel2
-              sudo yum install -y httpd mariadb-server
+              sudo yum install -y httpd wget php-fpm php-mysqli php-json php8.1 php-devel2
+              sudo yum install -y httpd mariadb
               systemctl start httpd
               systemctl enable httpd
               /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WordPressServer --region ${AWS::Region}
@@ -77,28 +92,30 @@ Resources:
               sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
               find /var/www -type f -exec sudo chmod 0664 {} \;              
 
-              #asegurar base de datos
-              sudo systemctl start mariadb
-              sudo -y mysql_secure_installation
+              #Editar archivo
+              cp wordpress/wp-config-sample.php wordpress/wp-config.php #backup archivo original
+              sed 's/database_name_here/wordpress-db-Javi/' wp-config.php #cambiar nombre database
+              sed 's/wordpress-user/Javi/' wp-config.php #poner usuario
+              sed 's/your_strong_password/1234/' wp-config.php #poner contraseña usuario
 
               #check permisos
-              echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+              sudo mv wordpress/* /var/www/html
               
-#To create a database user and database for your WordPress installation
-              #yum systemctl start mariadb httpd
-              #mysql -u root -p #login root
-              #CREATE USER 'Javi'@'localhost' IDENTIFIED BY '1234';
-              #CREATE DATABASE `wordpress-db-Javi`
-              #GRANT ALL PRIVILEGES ON `wordpress-db-Javi`.* TO "Javi"@"localhost"; # dar permiso al usuario creado
-              #FLUSH PRIVILEGES;
-              #exit
+              #To create a database user and database for your WordPress installation
+              sudo mysql -u admin -pJavi-1234 -P ${BaseDeDatosMariaDB.Endpoint.Port} -h ${BaseDeDatosMariaDB.Endpoint.Address} --protocol=TCP -e "CREATE USER 'Javi'@'localhost' IDENTIFIED BY '1234'; CREATE DATABASE `wordpress-db-Javi`; GRANT ALL PRIVILEGES ON `wordpress-db-Javi`.* TO "Javi"@"localhost"; FLUSH PRIVILEGES; exit "
 
-#Editar archivo
-              #cp wordpress/wp-config-sample.php wordpress/wp-config.php #backup archivo original
-              #sed 's/database_name_here/wordpress-db-Javi/' wp-config.php #cambiar nombre database
-              #sed 's/wordpress-user/Javi/' wp-config.php #poner usuario
-              #sed 's/your_strong_password/1234/' wp-config.php #poner contraseña usuario
+              #asegurar base de datos
+              # Make sure that NOBODY can access the server without a password 
+              mysql -e "UPDATE mysql.user SET Password = PASSWORD('CHANGEME') WHERE User = 'root'" 
+              # Kill the anonymous users 
+              mysql -e "DROP USER ''@'localhost'" 
+              # Because our hostname varies we'll use some Bash magic here. 
+              mysql -e "DROP USER ''@'$(hostname)'" 
+              # Kill off the demo database
 
+              mysql -e "DROP DATABASE test" 
+              # Make our changes take effect 
+              mysql -e "FLUSH PRIVILEGES"
 
 
 
@@ -115,6 +132,7 @@ Resources:
       MasterUserPassword: 'Javi-1234'
       VPCSecurityGroups:
         - !GetAtt WebSecurityGroup.GroupId
+        - !GetAtt DBSecurityGroup.GroupId
         
 
 Outputs:
