@@ -76,15 +76,17 @@ Resources:
               
               #Instalar pila LAMP
               sudo yum update -y
-              sudo yum install -y httpd wget php-fpm php-mysqli php-json php8.1 php-devel2
-              sudo yum install -y httpd mariadb
-              systemctl start httpd
-              systemctl enable httpd
+              sudo yum install -y httpd php-mysqli php*
+              sudo yum install -y httpd mariadb105
+
+              sudo systemctl start httpd
+              sudo systemctl enable httpd
               /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WordPressServer --region ${AWS::Region}
               
               #instalación Wordpress
-              wget https://wordpress.org/latest.tar.gz
-              tar -xzf latest.tar.gz
+              sudo wget https://wordpress.org/latest.tar.gz
+              sudo tar -xzf latest.tar.gz
+              sudo chown ec2-user:ec2-user wordpress
 
               #Permissions for Apache web server
               sudo usermod -a -G apache ec2-user #añadir usuario ec2-user a apache group
@@ -93,11 +95,12 @@ Resources:
               find /var/www -type f -exec sudo chmod 0664 {} \;              
 
               #Editar archivo
-              sudo cp /wordpress/wp-config-sample.php /wordpress/wp-config.php #backup archivo original
+              sudo cp /wordpress/wp-config-sample.php /wordpress/wp-config.php 
               cd /wordpress
-              sed s/database_name_here/wordpress-db-Javi/ wp-config.php #cambiar nombre database
-              sed s/wordpress-user/Javi/ wp-config.php #poner usuario
-              sed s/your_strong_password/1234/ wp-config.php #poner contraseña usuario
+              sudo sed -i 's/database_name_here/wordpress-db-Javi/' wp-config.php
+              sudo sed -i 's/username_here/Javi/' wp-config.php 
+              sudo sed -i 's/password_here/1234/' wp-config.php 
+              sudo sed -i 's/localhost/${BaseDeDatosMariaDB.Endpoint.Address}/' wp-config.php
 
               #check permisos
               sudo mv /wordpress/* /var/www/html
@@ -118,6 +121,7 @@ Resources:
               # Make our changes take effect 
               mysql -e "FLUSH PRIVILEGES"
 
+              sudo service httpd restart
 
 
   BaseDeDatosMariaDB:
