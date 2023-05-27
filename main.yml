@@ -76,8 +76,8 @@ Resources:
               
               #Instalar pila LAMP
               sudo yum update -y
-              sudo yum install -y httpd wget php-fpm php-mysqli php-json php* php-devel
-              sudo yum install -y mariadb105
+              sudo yum install -y httpd wget php-fpm php-mysqli php-json php php-devel
+              sudo yum install -y httpd mariadb105
 
 
               sudo systemctl start httpd
