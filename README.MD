@@ -1,7 +1,10 @@
 # Repositorio AWS 
 ## Por Javier Rodríguez Fernández
 ***
- ### 1. Desploy-stack.sh
+### Context
+- Projecto final de la asignatura Lenguaje de Marcas. 
+- Objetivo => automatizar el proceso de lanzar una Pila LAMP en AWS
+### 1. Desploy-stack.sh
   El script despliega una pila con el nombre de Pila-Javi
 ***
   ### 2. main.yml 
