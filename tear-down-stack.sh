@@ -1,2 +1,1 @@
-aws cloudformation delete-stack \
-    --stack-name Pila_Javi 
+aws cloudformation delete-stack --stack-name Pila-Javi
